@@ -3,24 +3,14 @@ const cursor = document.getElementById('flame-cursor');
 const cursorLighting = document.getElementById('flame-lighting');
 const imageMask = document.getElementById('svg-image-mask');
 
-// Fetch and inject SVGs
-const responseFlame = await fetch('../assets/flame.svg');
-const responseFlameLighting = await fetch('../assets/flame-lighting.svg');
-const responseFlameMask = await fetch('../assets/flame-mask.svg');
-
-const flameSvg = await responseFlame.text();
-const flameLightingSvg = await responseFlameLighting.text();
-const flameMaskSvg = await responseFlameMask.text();
-
-cursor.innerHTML = flameSvg;
-cursorLighting.innerHTML = flameLightingSvg;
-imageMask.innerHTML = flameMaskSvg;
-
 // SVG groups and dynamic image container
-const flameGroup = document.getElementById('flame-group');
-const lightingGroup = document.getElementById('lighting-group');
-const maskMover = document.getElementById('mask-mover');
-const dynamicImage = document.getElementById('dynamicImage');
+let flameGroup;
+let lightingGroup;
+let maskMover;
+let dynamicImage;
+
+// Fetch and inject SVGs
+await fetchSvg();
 
 // Tracking coordinates and tilt properties
 let mouseX = 0, mouseY = 0;
@@ -40,13 +30,39 @@ function mouseMoveEvent(e) {
 }
 
 // Toggle animation loop based on screen size
-function loadAnimation(mediaQuery) {
+async function loadAnimation(mediaQuery) {
   if (!mediaQuery.matches) {
     window.addEventListener('mousemove', mouseMoveEvent);
+
+    await fetchSvg();
+
     animate();
   } else {
     window.removeEventListener('mousemove', mouseMoveEvent);
+
+    cursor.innerHTML = '';
+    cursorLighting.innerHTML = '';
+    imageMask.innerHTML = '';
   }
+}
+
+async function fetchSvg() {
+  const responseFlame = await fetch('../assets/flame.svg');
+  const responseFlameLighting = await fetch('../assets/flame-lighting.svg');
+  const responseFlameMask = await fetch('../assets/flame-mask.svg');
+
+  const flameSvg = await responseFlame.text();
+  const flameLightingSvg = await responseFlameLighting.text();
+  const flameMaskSvg = await responseFlameMask.text();
+
+  cursor.innerHTML = flameSvg;
+  cursorLighting.innerHTML = flameLightingSvg;
+  imageMask.innerHTML = flameMaskSvg;
+
+  flameGroup = document.getElementById('flame-group');
+  lightingGroup = document.getElementById('lighting-group');
+  maskMover = document.getElementById('mask-mover');
+  dynamicImage = document.getElementById('dynamicImage');
 }
 
 // Main animation loop
