@@ -5,8 +5,8 @@ screenSize.addEventListener('change', () => loadScript(window.matchMedia('(max-w
 
 async function loadScript(screenSize) {
   if (screenSize.matches) {
-    await import('./script.js');
+    await import('./tablet.js');
   } else {
-    await import('./cursor.js');
+    await import('./desktop.js');
   }
 }
