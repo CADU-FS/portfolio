@@ -1,3 +1,6 @@
+// DOM elements to be removed when screen size changes
+const elementsToRemove = document.getElementsByClassName('desktop-remove');
+
 // DOM elements for flame and mask
 const cursor = document.getElementById('flame-cursor');
 const cursorLighting = document.getElementById('flame-lighting');
@@ -40,9 +43,9 @@ async function loadAnimation(mediaQuery) {
   } else {
     window.removeEventListener('mousemove', mouseMoveEvent);
 
-    cursor.innerHTML = '';
-    cursorLighting.innerHTML = '';
-    imageMask.innerHTML = '';
+    Array.from(elementsToRemove).forEach(node => {
+      node.innerHTML = '';
+    });
   }
 }
 
@@ -138,3 +141,5 @@ function animate() {
     requestAnimationFrame(animate);
   }
 }
+
+// limpeza do HTML, novas classes para otimizar o css, ordem de aparição dos elementos da tocha invertida, z-index dos elementos revisados, mudança na posição do recorte da imagem de fundo, separação de animações dos elementos da tocha, removido iluminação svg da tocha, nova seção de media query para desktops para exibir elementos corretamente

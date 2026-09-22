@@ -7,8 +7,6 @@
 
   <link rel="stylesheet" href="style.css">
   <script type="module" src="script/main.js" defer async></script>
-  <!-- <script src="./script/script.js" defer></script>
-  <script src="./script/cursor.js" defer></script> -->
 
   <script src="https://kit.fontawesome.com/72c8ee24a1.js" crossorigin="anonymous"></script>
 </head>
@@ -39,25 +37,23 @@
 
     <!-- Image Container -->
     <div class="image-container" id="dynamicImage">
-      <img id="mobile-image" src="./media/74326.png" alt="">
-      <img id="tablet-image" src="./media/74325.png" alt="">
-      <img id="dark-image" src="./media/74322.png" alt="">
-      <img id="mask-image" src="./media/74321.png" alt="">
+      <img class="mobile-visible" id="mobile-image" src="./media/74326.png" alt="">
+      <img class="tablet-visible" id="tablet-image" src="./media/74325.png" alt="">
+      <img class="desktop-visible" id="dark-image" src="./media/74322.png" alt="">
+      <img class="desktop-visible" id="mask-image" src="./media/74321.png" alt="">
     </div>
 
     <!-- Torch Button -->
-    <button class="torch-btn" id="torchBtn" aria-label="Toggle Torch">
+    <button class="torch-btn tablet-visible" id="torchBtn" aria-label="Toggle Torch">
       <svg class="torch-svg" viewBox="0 0 60 120" xmlns="http://www.w3.org/2000/svg">
-        <g class="torch-fire">
-          <path d="M32 4C33 9 32 13 28 16 22 21 8 30 14 46 16 50 21 58 32 58 43 58 48 50 49 46 50 43 51 36 48 31 47 29 42 25 44 19 39 20 41 26 39 27 37 26 36 24 37 20 39 12 37 7 32 4Z" fill="#ff6600" />
-          <path d="M 30,50 Q 20,30 30,15 Q 40,30 30,50 Z" fill="#ffcc00" />
-        </g>
         <g class="torch-holder">
           <polygon points="30,70 60,65 60,75" fill="#444" />
           <polygon points="20,50 40,50 35,110 25,110" fill="#5c3a21" />
           <polygon points="15,50 45,50 40,60 20,60" fill="#222" />
         </g>
       </svg>
+      <div class="tablet-remove" id="torch-lighting"></div>
+      <div class="tablet-remove" id="torch-flame"></div>
     </button>
 
     <!-- Animated scroll arrow -->
@@ -68,12 +64,11 @@
     </div>
 
     <!-- Cursor -->
-    <div id="flame-cursor"></div>
-    <div id="flame-lighting"></div>
+    <div class="desktop-visible desktop-remove" id="flame-lighting"></div>
+    <div class="desktop-visible desktop-remove" id="flame-cursor"></div>
 
     <!-- Image mask -->
-    <div id="svg-image-mask"></div>
-    
+    <div class="desktop-visible desktop-remove" id="svg-image-mask"></div>
   </section>
 </body>
 </html>
