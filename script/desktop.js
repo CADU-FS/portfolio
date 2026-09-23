@@ -1,6 +1,3 @@
-// DOM elements to be removed when screen size changes
-const elementsToRemove = document.getElementsByClassName('desktop-remove');
-
 // DOM elements for flame and mask
 const cursor = document.getElementById('flame-cursor');
 const cursorLighting = document.getElementById('flame-lighting');
@@ -22,6 +19,25 @@ let flameCurrentX = 0, flameCurrentY = 0;
 let currentTiltFlameX = 0, currentTiltFlameY = 0;
 let currentTiltMaskX = 0, currentTiltMaskY = 0;
 
+async function fetchSvg() {
+  const responseFlame = await fetch('../assets/flame.svg');
+  const responseFlameLighting = await fetch('../assets/flame-lighting.svg');
+  const responseFlameMask = await fetch('../assets/flame-mask.svg');
+
+  const flameSvg = await responseFlame.text();
+  const flameLightingSvg = await responseFlameLighting.text();
+  const flameMaskSvg = await responseFlameMask.text();
+
+  cursor.innerHTML = flameSvg;
+  cursorLighting.innerHTML = flameLightingSvg;
+  imageMask.innerHTML = flameMaskSvg;
+
+  flameGroup = document.getElementById('flame-group');
+  lightingGroup = document.getElementById('lighting-group');
+  maskMover = document.getElementById('mask-mover');
+  dynamicImage = document.getElementById('dynamicImage');
+}
+
 // Media query to disable effect on smaller screens
 const mediaQuery = window.matchMedia('(max-width: 1024px)');
 mediaQuery.addEventListener('change', () => loadAnimation(mediaQuery));
@@ -42,30 +58,13 @@ async function loadAnimation(mediaQuery) {
     animate();
   } else {
     window.removeEventListener('mousemove', mouseMoveEvent);
-
+    
+    // DOM elements to be removed
+    const elementsToRemove = document.getElementsByClassName('desktop-remove');
     Array.from(elementsToRemove).forEach(node => {
       node.innerHTML = '';
     });
   }
-}
-
-async function fetchSvg() {
-  const responseFlame = await fetch('../assets/flame.svg');
-  const responseFlameLighting = await fetch('../assets/flame-lighting.svg');
-  const responseFlameMask = await fetch('../assets/flame-mask.svg');
-
-  const flameSvg = await responseFlame.text();
-  const flameLightingSvg = await responseFlameLighting.text();
-  const flameMaskSvg = await responseFlameMask.text();
-
-  cursor.innerHTML = flameSvg;
-  cursorLighting.innerHTML = flameLightingSvg;
-  imageMask.innerHTML = flameMaskSvg;
-
-  flameGroup = document.getElementById('flame-group');
-  lightingGroup = document.getElementById('lighting-group');
-  maskMover = document.getElementById('mask-mover');
-  dynamicImage = document.getElementById('dynamicImage');
 }
 
 // Main animation loop
@@ -141,5 +140,3 @@ function animate() {
     requestAnimationFrame(animate);
   }
 }
-
-// limpeza do HTML, novas classes para otimizar o css, ordem de aparição dos elementos da tocha invertida, z-index dos elementos revisados, mudança na posição do recorte da imagem de fundo, separação de animações dos elementos da tocha, removido iluminação svg da tocha, nova seção de media query para desktops para exibir elementos corretamente
