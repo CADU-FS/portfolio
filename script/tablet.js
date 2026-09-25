@@ -17,8 +17,8 @@ await fetchSvg();
 
 // Fetch and inject SVGs
 async function fetchSvg() {
-  const responseFlame = await fetch('../assets/flame.svg');
-  const responseFlameLighting = await fetch('../assets/flame-lighting.svg');
+  const responseFlame = await fetch('./assets/flame.svg');
+  const responseFlameLighting = await fetch('./assets/flame-lighting.svg');
 
   const flameSvg = await responseFlame.text();
   const flameLightingSvg = await responseFlameLighting.text();

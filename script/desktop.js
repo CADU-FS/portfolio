@@ -20,9 +20,9 @@ let currentTiltFlameX = 0, currentTiltFlameY = 0;
 let currentTiltMaskX = 0, currentTiltMaskY = 0;
 
 async function fetchSvg() {
-  const responseFlame = await fetch('../assets/flame.svg');
-  const responseFlameLighting = await fetch('../assets/flame-lighting.svg');
-  const responseFlameMask = await fetch('../assets/flame-mask.svg');
+  const responseFlame = await fetch('./assets/flame.svg');
+  const responseFlameLighting = await fetch('./assets/flame-lighting.svg');
+  const responseFlameMask = await fetch('./assets/flame-mask.svg');
 
   const flameSvg = await responseFlame.text();
   const flameLightingSvg = await responseFlameLighting.text();
