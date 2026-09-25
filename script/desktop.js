@@ -38,6 +38,31 @@ async function fetchSvg() {
   dynamicImage = document.getElementById('dynamicImage');
 }
 
+// Get hero section to track mouse boundaries
+const heroSection = document.querySelector('.hero-section');
+const imageWithMask = document.getElementById('mask-image');
+
+handleFlameVisibility(false);
+if(heroSection.matches(':hover')) handleFlameVisibility(true);
+
+// Hide custom flame cursor when mouse leaves the image area
+heroSection.addEventListener('mouseleave', () => handleFlameVisibility(false));
+
+// Show custom flame cursor when mouse enters the image area
+heroSection.addEventListener('mouseenter', () => handleFlameVisibility(true));
+
+function handleFlameVisibility(mouseEnter) {
+  if(mouseEnter) {
+    cursor.classList.remove('hide-flame');
+    cursorLighting.classList.remove('hide-flame');
+    if (imageWithMask) imageWithMask.classList.remove('hide-flame');
+  } else {
+    cursor.classList.add('hide-flame');
+    cursorLighting.classList.add('hide-flame');
+    if (imageWithMask) imageWithMask.classList.add('hide-flame');
+  }
+}
+
 // Media query to disable effect on smaller screens
 const mediaQuery = window.matchMedia('(max-width: 1024px)');
 mediaQuery.addEventListener('change', () => loadAnimation(mediaQuery));
